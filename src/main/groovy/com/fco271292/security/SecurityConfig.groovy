@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @EnableWebSecurity
 @SuppressWarnings("deprecation")
@@ -36,8 +37,10 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure( HttpSecurity http) throws Exception {
 		http
 		.httpBasic().and()
+//		.addFilterAfter(new JWTTokenFilter(), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
 		  .antMatchers("/user/**").permitAll()
+		  .antMatchers("/role/**").permitAll()
 		  .anyRequest().authenticated().and()
 		.csrf().disable()
 	}
