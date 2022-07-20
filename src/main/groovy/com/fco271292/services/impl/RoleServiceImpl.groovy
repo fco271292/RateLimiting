@@ -6,7 +6,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 import com.fco271292.repository.RoleRepository
-import com.fco271292.repository.UserRepository
 import com.fco271292.services.RoleService
 
 import ch.qos.logback.classic.Logger
