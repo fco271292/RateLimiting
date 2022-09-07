@@ -45,6 +45,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		http = http.exceptionHandling().authenticationEntryPoint()
 		http.authorizeHttpRequests().antMatchers("/user/**").permitAll()
 		.antMatchers("/api/login/**").permitAll()
+		.antMatchers("/rabbitmq/**").permitAll()
 //		.antMatchers("")
 		.anyRequest().authenticated()
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
