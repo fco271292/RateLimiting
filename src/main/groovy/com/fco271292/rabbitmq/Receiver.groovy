@@ -10,9 +10,25 @@ class Receiver {
 	
 	Logger logger = LoggerFactory.getLogger(this.class)
 	
-	void receiveMessage(String message) {
-		def msn = "Received <-- ${message}" as String
+	void receiveMessage(def rabbitMQDTO) {
+		def msn = "Received <-- ${rabbitMQDTO?.toString()}" as String
 		logger.info msn
+		processObject(rabbitMQDTO)
+	}
+	
+	def processObject (def rabbitMQDTO) {
+		def status = rabbitMQDTO?.status
+		switch(status) {
+			case true:
+				logger.info "-> TRUE"
+			break;
+			case false:
+				logger.info "-> FALSE"
+			break;
+			default:
+				logger.info "-> DEFAULT"
+			break;
+		}
 	}
 	
 }
