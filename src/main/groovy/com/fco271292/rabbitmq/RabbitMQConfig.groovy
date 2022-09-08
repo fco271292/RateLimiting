@@ -15,11 +15,13 @@ class RabbitMQConfig {
 	
 	static final String topicExchangeName = "RateLimit-Exchange"
 	static final String queueName = "RateLimit"
+	def durable = false
 	static final String routingKey = "com.fco271292"
+	def defaultListenerMethod = "receiveMessage"
 	
 	@Bean
 	Queue queue () {
-		new Queue(queueName, false)
+		new Queue(queueName, durable)
 	}
 	
 	@Bean
@@ -35,15 +37,15 @@ class RabbitMQConfig {
 	@Bean
 	SimpleMessageListenerContainer container (ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter) {
 		SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer()
-		simpleMessageListenerContainer.setConnectionFactory(connectionFactory)
+		simpleMessageListenerContainer.connectionFactory = connectionFactory
 		simpleMessageListenerContainer.setQueueNames(queueName)
-		simpleMessageListenerContainer.setMessageListener(messageListenerAdapter)
+		simpleMessageListenerContainer.messageListener = messageListenerAdapter
 		simpleMessageListenerContainer
 	}
 	
 	@Bean
 	MessageListenerAdapter listenerAdapter (Receiver receiver) {
-		new MessageListenerAdapter(receiver, "receiveMessage")
+		new MessageListenerAdapter(receiver, defaultListenerMethod)
 	}
 	
 }

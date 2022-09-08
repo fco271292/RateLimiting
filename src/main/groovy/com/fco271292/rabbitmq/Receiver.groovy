@@ -11,7 +11,7 @@ class Receiver {
 	Logger logger = LoggerFactory.getLogger(this.class)
 	
 	void receiveMessage(String message) {
-		def msn = "Received <--" + message
+		def msn = "Received <-- ${message}" as String
 		logger.info msn
 	}
 	

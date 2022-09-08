@@ -18,12 +18,10 @@ class RabbitMQServiceImpl implements RabbitMQService {
 	
 	Receiver receiver
 	
-	String routingKey = "com.fco271292"
-	def message = "RABBITMQ ${LocalDateTime.now()}"
-	
 	@Override
 	def run() {
-		rabbitTemplate.convertAndSend(RabbitMQConfig.topicExchangeName, routingKey, message)
+		def message = "RABBITMQ ${LocalDateTime.now()}" as String
+		rabbitTemplate.convertAndSend(RabbitMQConfig.topicExchangeName, RabbitMQConfig.routingKey, message)
 	}
 	
 }
